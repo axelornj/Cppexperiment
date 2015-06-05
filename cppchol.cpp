@@ -11,20 +11,19 @@ using namespace Rcpp;
 
 NumericMatrix cppchol(NumericMatrix m){
     NumericMatrix L(2);
+    int k,j,i;
     for(k=0;k<2;k++){
         m(k,k)=sqrt(m(k,k));
         for(i=k+1;i<2;i++){
-            int m(i,k)=m(i,k)/m(k,k);
+            m(i,k)=m(i,k)/m(k,k);
         }
-        for(j=k+1;j<2,;j++)
+        for(j=k+1;j<2;j++){
+            for (i=j;i<2;i++){
+                m(i,j)=m(i,j)-m(i,k)*m(j,k);   
+            }    
+        }
         
-    
-    int L11=sqrt(m(1,1)-pow(L10,2));
-    L(0,0) = L00;
-    L(1,0) = 0;
-    
-    L(0,1)=L10;
-    L(1,1) = L11;
-    return L;
+    }
+    return m;
     
 }
